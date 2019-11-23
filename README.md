@@ -1,7 +1,7 @@
 # GEARSystem
 
 
-This repository is a collaboration of UFPE Maracatronics and USP Warthog. It contains the software developed by Warthog Team of USP University.
+This repository is a collaboration of UFPE Maracatronics and USP-CAASO Warthog. It contains the software developed by Warthog Team of USP-CAASO University.
 
 Their repository can be found 
 [here](https://warthog.assembla.com/spaces/warthog-dia/wiki)
