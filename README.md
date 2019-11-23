@@ -5,7 +5,7 @@ This repository is a collaboration of UFPE Maracatronics and USP Warthog. It con
 
 Their repository can be found here: 
 
-![Warthog Robotics](img/warthog.png?raw=true "Warthog Robotics" | width = 256)
+![Warthog Robotics](img/warthog.png?raw=true "Warthog Robotics" | width=256)
 
 ![Armorial Project](img/armorialproject.png?raw=true "Maracatronics Armorial Project")
 ![Maracatronics](img/maracatronics.png?raw=true "Maracatronics")
