@@ -42,6 +42,10 @@ class GEARSystem::Team {
         QHash<uint8,Velocity*>     _playersVelocities;
         QHash<uint8,AngularSpeed*> _playersAngularSpeeds;
         QHash<uint8,bool>          _ballPossessions;
+        QHash<uint8,bool>          _dribbleEnabled;
+        QHash<uint8,bool>          _kickEnabled;
+        QHash<uint8,unsigned char>          _batteryCharge;
+        QHash<uint8,unsigned char>          _capacitorCharge;
 
         // Info flag
         bool _valid;
@@ -59,6 +63,10 @@ class GEARSystem::Team {
         mutable QReadWriteLock* _velocitiesLock;
         mutable QReadWriteLock* _angularSpeedsLock;
         mutable QReadWriteLock* _possessionsLock;
+        mutable QReadWriteLock* _dribblesLock;
+        mutable QReadWriteLock* _kicksLock;
+        mutable QReadWriteLock* _batteriesLock;
+        mutable QReadWriteLock* _capacitorsLock;
         #endif
 
 
@@ -95,6 +103,19 @@ class GEARSystem::Team {
         void  setName(const QString& name);
         void  setNumber(uint8 number);
 
+    public:
+        /*** Players RadioSensor functions
+         **  Description: Handles the radiosensor functions
+         **  Receives:      [playerNum] The player number
+         **                 [status] or [charge], the status(bool) or charge(char)
+         **  Returns:       Nothing
+         ***/
+
+        void setPlayerBatteryCharge(uint8 playerNum, unsigned char charge);
+        void setPlayerCapacitorCharge(uint8 playerNum, unsigned char charge);
+        void setPlayerDribbleStatus(uint8 playerNum, bool status);
+        void setPlayerKickStatus(uint8 playerNum, bool status);
+
 
     public:
         /*** Gets functions
@@ -102,11 +123,15 @@ class GEARSystem::Team {
           ** Receives:    [playerNum] The player number
           ** Returns:     The player position, orientation, velocity or angular speed
           ***/
-        const Position*     position(uint8 playerNum)       const;
-        const Angle*        orientation(uint8 playerNum)    const;
-        const Velocity*     velocity(uint8 playerNum)       const;
-        const AngularSpeed* angularSpeed(uint8 playerNum)   const;
-        bool                ballPossession(uint8 playerNum) const;
+        const Position*     position(uint8 playerNum)        const;
+        const Angle*        orientation(uint8 playerNum)     const;
+        const Velocity*     velocity(uint8 playerNum)        const;
+        const AngularSpeed* angularSpeed(uint8 playerNum)    const;
+        bool                ballPossession(uint8 playerNum)  const;
+        unsigned char       batteryCharge(uint8 playerNum)   const;
+        unsigned char       capacitorCharge(uint8 playerNum) const;
+        bool                kickEnabled(uint8 playerNum)     const;
+        bool                dribbleEnabled(uint8 playerNum)  const;
 
         /*** 'setPosition' function
           ** Description: Sets the player position

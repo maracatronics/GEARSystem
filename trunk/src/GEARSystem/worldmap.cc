@@ -382,7 +382,7 @@ QList<uint8> WorldMap::players(uint8 teamNum) const {
   ** Description: Gets the player pose, velocity and angular speed
   ** Receives:    [teamNum]   The team number
                   [playerNum] The player number
-  ** Returns:     The player position, orientation, velocity or angular speed
+  ** Returns:     The player position, orientation, velocity, angular speed, capacitor or battery charges, kick or dribble status
   ***/
 const Position& WorldMap::playerPosition(uint8 teamNum, uint8 playerNum) const {
     // Handles the lock
@@ -482,6 +482,86 @@ bool WorldMap::ballPossession(uint8 teamNum, uint8 playerNum) const {
 
     // Returns the flag
     return(_teams[teamNum].ballPossession(playerNum));
+}
+
+bool WorldMap::kickEnabled(quint8 teamNum, quint8 playerNum) const {
+    // Handles the lock
+    //#ifdef GSTHREADSAFE
+    QReadLocker teamsLocker(_teamsLock);
+    // TODO: Fix fault at this point
+    //#endif
+
+    // Returns the flag
+    if (!_validTeams.value(teamNum)) {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: WorldMap::kickEnabled(uint8, uint8): No such Team #";
+        cerr << int(teamNum) << " in this map!!" << endl << flush;
+        #endif
+        return(false);
+    }
+
+    // Returns the flag
+    return(_teams[teamNum].kickEnabled(playerNum));
+}
+
+bool WorldMap::dribbleEnabled(quint8 teamNum, quint8 playerNum) const {
+    // Handles the lock
+    //#ifdef GSTHREADSAFE
+    QReadLocker teamsLocker(_teamsLock);
+    // TODO: Fix fault at this point
+    //#endif
+
+    // Returns the flag
+    if (!_validTeams.value(teamNum)) {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: WorldMap::dribbleEnabled(uint8, uint8): No such Team #";
+        cerr << int(teamNum) << " in this map!!" << endl << flush;
+        #endif
+        return(false);
+    }
+
+    // Returns the flag
+    return(_teams[teamNum].dribbleEnabled(playerNum));
+}
+
+unsigned char WorldMap::batteryCharge(quint8 teamNum, quint8 playerNum) const {
+    // Handles the lock
+    //#ifdef GSTHREADSAFE
+    QReadLocker teamsLocker(_teamsLock);
+    // TODO: Fix fault at this point
+    //#endif
+
+    // Returns the flag
+    if (!_validTeams.value(teamNum)) {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: WorldMap::batteryCharge(uint8, uint8): No such Team #";
+        cerr << int(teamNum) << " in this map!!" << endl << flush;
+        #endif
+        return(false);
+    }
+
+    // Returns the flag
+    return(_teams[teamNum].batteryCharge(playerNum));
+}
+
+unsigned char WorldMap::capacitorCharge(quint8 teamNum, quint8 playerNum) const {
+    // Handles the lock
+    //#ifdef GSTHREADSAFE
+    QReadLocker teamsLocker(_teamsLock);
+    // TODO: Fix fault at this point
+    //#endif
+
+    // Returns the flag
+    if (!_validTeams.value(teamNum)) {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: WorldMap::capacitorCharge(uint8, uint8): No such Team #";
+        cerr << int(teamNum) << " in this map!!" << endl << flush;
+        #endif
+        return(false);
+    }
+
+    // Returns the flag
+    return(_teams[teamNum].capacitorCharge(playerNum));
 }
 
 /*** 'setPlayerPosition' function
@@ -611,6 +691,112 @@ void WorldMap::setBallPossession(uint8 teamNum, uint8 playerNum, bool possession
     else {
         #ifdef GSDEBUGMSG
         cerr << ">> GEARSystem: WorldMap::setBallPossession(uint8, uint8, bool): No such Team #";
+        cerr << int(teamNum) << " in this map!!" << endl << flush;
+        #endif
+    }
+}
+
+/*** 'setKickEnabled' function
+  ** Description: Indicates if the player has the kick device enabled
+  ** Receives:    [teamNum]    The team number
+                  [playerNum]  The player number
+                  [status] 'true' if the player enabled the kick device, 'false' otherwise
+  ** Returns:     Nothing
+  ***/
+void WorldMap::setKickEnabled(uint8 teamNum, uint8 playerNum, bool status){
+    // Handles the lock
+    //#ifdef GSTHREADSAFE
+    QWriteLocker teamsLocker(_teamsLock);
+    // TODO: Fix fault at this point
+    //#endif
+
+    // Sets the flag
+    if (_validTeams.value(teamNum)) {
+        _teams[teamNum].setPlayerKickStatus(playerNum, status);
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: WorldMap::setKickEnabled(uint8, uint8, bool): No such Team #";
+        cerr << int(teamNum) << " in this map!!" << endl << flush;
+        #endif
+    }
+}
+
+/*** 'setDribbleEnabled' function
+  ** Description: Indicates if the player has the dribble device enabled
+  ** Receives:    [teamNum]    The team number
+                  [playerNum]  The player number
+                  [possession] 'true' if the player enabled the dribble device, 'false' otherwise
+  ** Returns:     Nothing
+  ***/
+void WorldMap::setDribbleEnabled(uint8 teamNum, uint8 playerNum, bool status){
+    // Handles the lock
+    //#ifdef GSTHREADSAFE
+    QWriteLocker teamsLocker(_teamsLock);
+    // TODO: Fix fault at this point
+    //#endif
+
+    // Sets the flag
+    if (_validTeams.value(teamNum)) {
+        _teams[teamNum].setPlayerDribbleStatus(playerNum, status);
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: WorldMap::setDribbleEnabled(uint8, uint8, bool): No such Team #";
+        cerr << int(teamNum) << " in this map!!" << endl << flush;
+        #endif
+    }
+}
+
+
+/*** 'setBatteryCharge' function
+  ** Description: Indicates the player battery charge value
+  ** Receives:    [teamNum]    The team number
+                  [playerNum]  The player number
+                  [charge]     The charge value
+  ** Returns:     Nothing
+  ***/
+void WorldMap::setBatteryCharge(uint8 teamNum, uint8 playerNum, unsigned char charge){
+    // Handles the lock
+    //#ifdef GSTHREADSAFE
+    QWriteLocker teamsLocker(_teamsLock);
+    // TODO: Fix fault at this point
+    //#endif
+
+    // Sets the flag
+    if (_validTeams.value(teamNum)) {
+        _teams[teamNum].setPlayerBatteryCharge(playerNum, charge);
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: WorldMap::setBatteryCharge(uint8, uint8, char): No such Team #";
+        cerr << int(teamNum) << " in this map!!" << endl << flush;
+        #endif
+    }
+}
+
+
+/*** 'setCapacitorCharge' function
+  ** Description: Indicates the player battery charge value
+  ** Receives:    [teamNum]    The team number
+                  [playerNum]  The player number
+                  [charge]     The charge value
+  ** Returns:     Nothing
+  ***/
+void WorldMap::setCapacitorCharge(uint8 teamNum, uint8 playerNum, unsigned char charge){
+    // Handles the lock
+    //#ifdef GSTHREADSAFE
+    QWriteLocker teamsLocker(_teamsLock);
+    // TODO: Fix fault at this point
+    //#endif
+
+    // Sets the flag
+    if (_validTeams.value(teamNum)) {
+        _teams[teamNum].setPlayerCapacitorCharge(playerNum, charge);
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: WorldMap::setBallPossession(uint8, uint8, char): No such Team #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }

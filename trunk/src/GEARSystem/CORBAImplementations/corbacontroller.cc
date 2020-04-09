@@ -258,6 +258,53 @@ void CORBAImplementations::Controller::ballPossession(Octet teamNum, Octet playe
     possession = _worldMap->ballPossession(teamNum, playerNum);
 }
 
+/*** 'kickEnabled' function
+  ** Description: Indicates if the player has the kick device enabled
+  ** Receives:    [teamNum]    The team number
+                  [playerNum]  The player number
+                  [status] 'true' if the player has enabled, 'false' otherwise
+  ** Returns:     Nothing
+  ***/
+void CORBAImplementations::Controller::kickEnabled(Octet teamNum, Octet playerNum, bool& status){
+    // Returns the flag
+    status = _worldMap->kickEnabled(teamNum, playerNum);
+}
+
+/*** 'dribbleEnabled' function
+  ** Description: Indicates if the player has the dribble device enabled
+  ** Receives:    [teamNum]    The team number
+                  [playerNum]  The player number
+                  [status] 'true' if the player has enabled, 'false' otherwise
+  ** Returns:     Nothing
+  ***/
+void CORBAImplementations::Controller::dribbleEnabled(Octet teamNum, Octet playerNum, bool& status){
+    // Returns the flag
+    status = _worldMap->dribbleEnabled(teamNum, playerNum);
+}
+
+/*** 'batteryCharge' function
+  ** Description: Indicates the player battery charge
+  ** Receives:    [teamNum]    The team number
+                  [playerNum]  The player number
+                  [charge]     The value
+  ** Returns:     Nothing
+  ***/
+void CORBAImplementations::Controller::batteryCharge(Octet teamNum, Octet playerNum, unsigned char& charge){
+    // Returns the flag
+    charge = _worldMap->batteryCharge(teamNum, playerNum);
+}
+
+/*** 'capacitorCharge' function
+  ** Description: Indicates the player capacitor charge
+  ** Receives:    [teamNum]    The team number
+                  [playerNum]  The player number
+                  [charge]     The value
+  ** Returns:     Nothing
+  ***/
+void CORBAImplementations::Controller::capacitorCharge(Octet teamNum, Octet playerNum, unsigned char& charge){
+    // Returns the flag
+    charge = _worldMap->capacitorCharge(teamNum, playerNum);
+}
 
 /*** 'setSpeed'
   ** Description: Sets a player speed

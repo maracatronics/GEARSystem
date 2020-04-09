@@ -157,6 +157,10 @@ class GEARSystem::WorldMap {
         const Velocity&     playerVelocity(uint8 teamNum, uint8 playerNum)     const;
         const AngularSpeed& playerAngularSpeed(uint8 teamNum, uint8 playerNum) const;
         bool                ballPossession(uint8 teamNum, uint8 playerNum)     const;
+        bool                kickEnabled(uint8 teamNum, uint8 playerNum)        const;
+        bool                dribbleEnabled(uint8 teamNum, uint8 playerNum)     const;
+        unsigned char       batteryCharge(uint8 teamNum, uint8 playerNum)      const;
+        unsigned char       capacitorCharge(uint8 teamNum, uint8 playerNum)    const;
 
         /*** 'setPlayerPosition' function
           ** Description: Sets the player position
@@ -202,6 +206,44 @@ class GEARSystem::WorldMap {
           ** Returns:     Nothing
           ***/
         void setBallPossession(uint8 teamNum, uint8 playerNum, bool possession);
+
+        /*** 'setKickEnabled' function
+          ** Description: Indicates if the player has the kick device enabled
+          ** Receives:    [teamNum]    The team number
+                          [playerNum]  The player number
+                          [status] 'true' if the player enabled the kick device, 'false' otherwise
+          ** Returns:     Nothing
+          ***/
+        void setKickEnabled(uint8 teamNum, uint8 playerNum, bool status);
+
+        /*** 'setDribbleEnabled' function
+          ** Description: Indicates if the player has the dribble device enabled
+          ** Receives:    [teamNum]    The team number
+                          [playerNum]  The player number
+                          [status] 'true' if the player enabled the dribble device, 'false' otherwise
+          ** Returns:     Nothing
+          ***/
+        void setDribbleEnabled(uint8 teamNum, uint8 playerNum, bool status);
+
+
+        /*** 'setBatteryCharge' function
+          ** Description: Indicates the player battery charge value
+          ** Receives:    [teamNum]    The team number
+                          [playerNum]  The player number
+                          [charge]     The charge value
+          ** Returns:     Nothing
+          ***/
+        void setBatteryCharge(uint8 teamNum, uint8 playerNum, unsigned char charge);
+
+
+        /*** 'setCapacitorCharge' function
+          ** Description: Indicates the player battery charge value
+          ** Receives:    [teamNum]    The team number
+                          [playerNum]  The player number
+                          [charge]     The charge value
+          ** Returns:     Nothing
+          ***/
+        void setCapacitorCharge(uint8 teamNum, uint8 playerNum, unsigned char charge);
 
 
     public:

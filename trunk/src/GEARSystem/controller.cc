@@ -587,6 +587,150 @@ bool Controller::ballPossession(uint8 teamNum, uint8 playerNum) {
     return(false);
 }
 
+/*** 'kickEnabled' function
+  ** Description: Indicates if the player have the kick device enabled
+  ** Receives:    [teamNum]   The team number
+                  [playerNum] The player number
+  ** Returns:     'true' if the player has the enabled kick, 'false' otherwise
+  ***/
+bool Controller::kickEnabled(uint8 teamNum, uint8 playerNum) const {
+    // Gets the flag
+    if (isConnected()) {
+        try {
+            bool status;
+            _corbaController->ballPossession(teamNum, playerNum, status);
+
+            // Returns the flag
+            return(status);
+        }
+
+        // Handles CORBA exceptions
+        catch (const CORBA::Exception& exception) {
+            #ifdef GSDEBUGMSG
+            cerr << ">> GEARSystem: Controller::kickEnabled(uint8, uint8): ";
+            cerr << "Caught CORBA exception: " << exception._name() << "!!" << endl << flush;
+            #endif
+        }
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Controller::kickEnabled(uint8, uint8): ";
+        cerr << "The controller is not connected!!" << endl << flush;
+        #endif
+    }
+
+    // Returns 'false' if an error occourred
+    return(false);
+}
+
+/*** 'dribbleEnabled' function
+  ** Description: Indicates if the player have the dribble device enabled
+  ** Receives:    [teamNum]   The team number
+                  [playerNum] The player number
+  ** Returns:     'true' if the player has the enabled kick, 'false' otherwise
+  ***/
+bool Controller::dribbleEnabled(uint8 teamNum, uint8 playerNum) const {
+    // Gets the flag
+    if (isConnected()) {
+        try {
+            bool status;
+            _corbaController->dribbleEnabled(teamNum, playerNum, status);
+
+            // Returns the flag
+            return(status);
+        }
+
+        // Handles CORBA exceptions
+        catch (const CORBA::Exception& exception) {
+            #ifdef GSDEBUGMSG
+            cerr << ">> GEARSystem: Controller::dribbleEnabled(uint8, uint8): ";
+            cerr << "Caught CORBA exception: " << exception._name() << "!!" << endl << flush;
+            #endif
+        }
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Controller::dribbleEnabled(uint8, uint8): ";
+        cerr << "The controller is not connected!!" << endl << flush;
+        #endif
+    }
+
+    // Returns 'false' if an error occourred
+    return(false);
+}
+
+/*** 'batteryCharge' function
+  ** Description: Indicates the player battery charge value
+  ** Receives:    [teamNum]   The team number
+                  [playerNum] The player number
+  ** Returns:     The charge value
+  ***/
+unsigned char Controller::batteryCharge(uint8 teamNum, uint8 playerNum) const {
+    // Gets the flag
+    if (isConnected()) {
+        try {
+            unsigned char charge;
+            _corbaController->batteryCharge(teamNum, playerNum, charge);
+
+            // Returns the flag
+            return(charge);
+        }
+
+        // Handles CORBA exceptions
+        catch (const CORBA::Exception& exception) {
+            #ifdef GSDEBUGMSG
+            cerr << ">> GEARSystem: Controller::batteryCharge(uint8, uint8): ";
+            cerr << "Caught CORBA exception: " << exception._name() << "!!" << endl << flush;
+            #endif
+        }
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Controller::batteryCharge(uint8, uint8): ";
+        cerr << "The controller is not connected!!" << endl << flush;
+        #endif
+    }
+
+    // Returns 0 if an error occourred
+    return(0);
+}
+
+/*** 'capacitorCharge' function
+  ** Description: Indicates the player capacitor charge value
+  ** Receives:    [teamNum]   The team number
+                  [playerNum] The player number
+  ** Returns:     The charge value
+  ***/
+unsigned char Controller::capacitorCharge(uint8 teamNum, uint8 playerNum) const {
+    // Gets the flag
+    if (isConnected()) {
+        try {
+            unsigned char charge;
+            _corbaController->capacitorCharge(teamNum, playerNum, charge);
+
+            // Returns the flag
+            return(charge);
+        }
+
+        // Handles CORBA exceptions
+        catch (const CORBA::Exception& exception) {
+            #ifdef GSDEBUGMSG
+            cerr << ">> GEARSystem: Controller::capacitorCharge(uint8, uint8): ";
+            cerr << "Caught CORBA exception: " << exception._name() << "!!" << endl << flush;
+            #endif
+        }
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Controller::capacitorCharge(uint8, uint8): ";
+        cerr << "The controller is not connected!!" << endl << flush;
+        #endif
+    }
+
+    // Returns 0 if an error occourred
+    return(0);
+}
+
 
 /*** 'setSpeed'
   ** Description: Sets a player speed

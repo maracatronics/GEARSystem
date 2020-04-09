@@ -147,6 +147,10 @@ class GEARSystem::Controller {
         const Angle        playerOrientation(uint8 teamNum, uint8 playerNum)  const;
         const Velocity     playerVelocity(uint8 teamNum, uint8 playerNum)     const;
         const AngularSpeed playerAngularSpeed(uint8 teamNum, uint8 playerNum) const;
+        bool               kickEnabled(uint8 teamNum, uint8 playerNum)        const;
+        bool               dribbleEnabled(uint8 teamNum, uint8 playerNum)     const;
+        unsigned char      batteryCharge(uint8 teamNum, uint8 playerNum)      const;
+        unsigned char      capacitorCharge(uint8 teamNum, uint8 playerNum)    const;
 
 
     public:

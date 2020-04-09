@@ -165,6 +165,41 @@ class GEARSystem::CORBAImplementations::Controller : public POA_GEARSystem::CORB
           ***/
         void ballPossession(Octet teamNum, Octet playerNum, bool& possession);
 
+        /*** 'kickEnabled' function
+          ** Description: Indicates if the player has the kick device enabled
+          ** Receives:    [teamNum]    The team number
+                          [playerNum]  The player number
+                          [status] 'true' if the player has enabled, 'false' otherwise
+          ** Returns:     Nothing
+          ***/
+        void kickEnabled(Octet teamNum, Octet playerNum, bool& status);
+
+        /*** 'dribbleEnabled' function
+          ** Description: Indicates if the player has the dribble device enabled
+          ** Receives:    [teamNum]    The team number
+                          [playerNum]  The player number
+                          [status] 'true' if the player has enabled, 'false' otherwise
+          ** Returns:     Nothing
+          ***/
+        void dribbleEnabled(Octet teamNum, Octet playerNum, bool& status);
+
+        /*** 'batteryCharge' function
+          ** Description: Indicates the player battery charge
+          ** Receives:    [teamNum]    The team number
+                          [playerNum]  The player number
+                          [charge]     The value
+          ** Returns:     Nothing
+          ***/
+        void batteryCharge(Octet teamNum, Octet playerNum, unsigned char& charge);
+
+        /*** 'capacitorCharge' function
+          ** Description: Indicates the player capacitor charge
+          ** Receives:    [teamNum]    The team number
+                          [playerNum]  The player number
+                          [charge]     The value
+          ** Returns:     Nothing
+          ***/
+        void capacitorCharge(Octet teamNum, Octet playerNum, unsigned char& charge);
 
     public:
         /*** 'setSpeed'

@@ -37,6 +37,7 @@ LIBS *= -lomniORB4 -lomnithread
 INCLUDEPATH *= include
 
 HEADERS     += include/GEARSystem/namespace.hh \
+               include/GEARSystem/CORBAImplementations/corbaradiosensor.hh \
                include/GEARSystem/gearsystem.hh \
                include/GEARSystem/Types/types.hh \
                include/GEARSystem/Types/angle.hh \
@@ -53,12 +54,15 @@ HEADERS     += include/GEARSystem/namespace.hh \
                include/GEARSystem/CORBAImplementations/corbasensor.hh \
                include/GEARSystem/actuator.hh \
                include/GEARSystem/controller.hh \
+               include/GEARSystem/radiosensor.hh \
                include/GEARSystem/sensor.hh \
                include/GEARSystem/server.hh \
                include/GEARSystem/commandbus.hh \
                include/GEARSystem/worldmap.hh
 
 SOURCES     += src/GEARSystem/Types/angle.cc \
+               src/GEARSystem/radiosensor.cc \
+               src/GEARSystem/CORBAImplementations/corbaradiosensor.cc \
                src/GEARSystem/Types/angularspeed.cc \
                src/GEARSystem/Types/field.cc \
                src/GEARSystem/Types/goal.cc \

@@ -22,6 +22,7 @@
 #include <GEARSystem/controller.hh>
 #include <GEARSystem/sensor.hh>
 #include <GEARSystem/server.hh>
+#include <GEARSystem/radiosensor.hh>
 
 
 #endif

@@ -67,6 +67,11 @@ module GEARSystem {
 
             void ballPossession(in octet teamNum, in octet playerNum, out boolean possession);
 
+            void kickEnabled(in octet teamNum, in octet playerNum, out boolean status);
+            void dribbleEnabled(in octet teamNum, in octet playerNum, out boolean status);
+            void batteryCharge(in octet teamNum, in octet playerNum, out char charge);
+            void capacitorCharge(in octet teamNum, in octet playerNum, out char charge);
+
             void setSpeed(in octet teamNum, in octet playerNum, in float x, in float y, in float theta);
 
             void kick(in octet teamNum, in octet playerNum, in float power);
@@ -127,6 +132,13 @@ module GEARSystem {
             void setRightPenaltyMark(in CORBATypes::Position position);
 
             void setFieldCenterRadius(in float centerRadius);
+        };
+
+        interface RadioSensor {
+            void setPlayerBatteryCharge(in octet teamNum, in octet playerNum, in char charge);
+            void setPlayerCapacitorCharge(in octet teamNum, in octet playerNum, in char charge);
+            void setPlayerDribbleStatus(in octet teamNum, in octet playerNum, in boolean status);
+            void setPlayerKickStatus(in octet teamNum, in octet playerNum, in boolean status);
         };
 
         interface CommandBus {

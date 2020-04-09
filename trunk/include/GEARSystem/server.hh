@@ -17,6 +17,7 @@
 #include <GEARSystem/CORBAImplementations/corbacontroller.hh>
 #include <GEARSystem/CORBAImplementations/corbasensor.hh>
 #include <GEARSystem/CORBAImplementations/corbacommandbus.hh>
+#include <GEARSystem/CORBAImplementations/corbaradiosensor.hh>
 
 
 // Includes omniORB 4
@@ -39,9 +40,10 @@ class GEARSystem::Server {
         CosNaming::NamingContext_var _nameService;
 
         // Controlled objects
-        CORBAImplementations::Controller* _controller;
-        CORBAImplementations::Sensor*     _sensor;
-        CORBAImplementations::CommandBus* _commandBus;
+        CORBAImplementations::Controller*  _controller;
+        CORBAImplementations::Sensor*      _sensor;
+        CORBAImplementations::RadioSensor* _radioSensor;
+        CORBAImplementations::CommandBus*  _commandBus;
 
         // Info flags
         bool _initialized;
@@ -56,7 +58,7 @@ class GEARSystem::Server {
                           [commandBus] The Command Bus the server will handle
           ***/
         Server(CORBAImplementations::Controller* controller, CORBAImplementations::Sensor* sensor,
-               CORBAImplementations::CommandBus* commandBus);
+               CORBAImplementations::RadioSensor* radioSensor, CORBAImplementations::CommandBus* commandBus);
 
 
     public:
@@ -106,6 +108,13 @@ class GEARSystem::Server {
           ** Returns:     'true' if everything went OK, 'false' otherwise
           ***/
         bool bindSensor();
+
+        /*** 'bindSensor' function
+          ** Description: Binds the radiosensor at the name service
+          ** Receives:    Nothing
+          ** Returns:     'true' if everything went OK, 'false' otherwise
+          ***/
+        bool bindRadioSensor();
 
         /*** 'bindCommandBus' function
           ** Description: Binds the commandbus at the name service

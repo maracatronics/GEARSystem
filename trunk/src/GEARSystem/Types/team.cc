@@ -82,6 +82,10 @@ Team::Team(uint8 teamNumber, QString teamName) {
     _playersVelocities.clear();
     _playersAngularSpeeds.clear();
     _ballPossessions.clear();
+    _kickEnabled.clear();
+    _dribbleEnabled.clear();
+    _batteryCharge.clear();
+    _capacitorCharge.clear();
 
     // Creates the locks
     #ifdef GSTHREADSAFE
@@ -116,6 +120,10 @@ void Team::addPlayer(uint8 playerNum) {
     (void) _playersOrientations.insert(playerNum, new Angle(false,0));
     (void) _playersVelocities.insert(playerNum, new Velocity(false,0,0));
     (void) _playersAngularSpeeds.insert(playerNum, new AngularSpeed(false,0));
+    (void) _kickEnabled.insert(playerNum, false);
+    (void) _dribbleEnabled.insert(playerNum, false);
+    (void) _batteryCharge.insert(playerNum, 0);
+    (void) _capacitorCharge.insert(playerNum, 0);
     (void) _ballPossessions.insert(playerNum, false);
     _nPlayers++;
 }
@@ -142,6 +150,10 @@ void Team::delPlayer(uint8 playerNum) {
     (void) _playersVelocities.remove(playerNum);
     (void) _playersAngularSpeeds.remove(playerNum);
     (void) _ballPossessions.remove(playerNum);
+    (void) _kickEnabled.remove(playerNum);
+    (void) _dribbleEnabled.remove(playerNum);
+    (void) _batteryCharge.remove(playerNum);
+    (void) _capacitorCharge.remove(playerNum);
     _nPlayers--;
 }
 
@@ -245,6 +257,106 @@ void Team::setVelocity(uint8 playerNum, const Velocity& theVelocity) {
     }
 }
 
+/*** 'setPlayerBatteryCharge' function
+  ** Description: Sets the player battery charge
+  ** Receives:    [playerNum]    The player number
+                  [charge]       The player battery charge
+  ** Returns:     Nothing
+  ***/
+void Team::setPlayerBatteryCharge(uint8 playerNum, unsigned char charge){
+    // Handles the lock
+    #ifdef GSTHREADSAFE
+    QWriteLocker batteriesLocker(_batteriesLock);
+    // TODO: Fix fault at this point
+    #endif
+
+    // Sets the player speed
+    if (_validPlayers.value(playerNum)) {
+        (void) _batteryCharge.insert(playerNum, charge);
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Team::setPlayerBattery(uint8, char): No such Player #" << int(playerNum);
+        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        #endif
+    }
+}
+
+/*** 'setPlayerCapacitorCharge' function
+  ** Description: Sets the player capacitor charge
+  ** Receives:    [playerNum]    The player number
+                  [charge]       The player capacitor charge
+  ** Returns:     Nothing
+  ***/
+void Team::setPlayerCapacitorCharge(uint8 playerNum, unsigned char charge){
+    // Handles the lock
+    #ifdef GSTHREADSAFE
+    QWriteLocker capacitorsLocker(_capacitorsLock);
+    // TODO: Fix fault at this point
+    #endif
+
+    // Sets the player speed
+    if (_validPlayers.value(playerNum)) {
+        (void) _capacitorCharge.insert(playerNum, charge);
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Team::setPlayerCapacitorCharge(uint8, char): No such Player #" << int(playerNum);
+        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        #endif
+    }
+}
+
+/*** 'setPlayerDribbleStatus' function
+  ** Description: Sets the player dribble device status
+  ** Receives:    [playerNum]    The player number
+                  [charge]       The player dribble device status
+  ** Returns:     Nothing
+  ***/
+void Team::setPlayerDribbleStatus(uint8 playerNum, bool status){
+    // Handles the lock
+    #ifdef GSTHREADSAFE
+    QWriteLocker dribblesLocker(_dribblesLock);
+    // TODO: Fix fault at this point
+    #endif
+
+    // Sets the player speed
+    if (_validPlayers.value(playerNum)) {
+        (void) _dribbleEnabled.insert(playerNum, status);
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Team::setPlayerDribbleStatus(uint8, bool): No such Player #" << int(playerNum);
+        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        #endif
+    }
+}
+
+/*** 'setPlayerKickStatus' function
+  ** Description: Sets the player kick device status
+  ** Receives:    [playerNum]    The player number
+                  [charge]       The player kick device status
+  ** Returns:     Nothing
+  ***/
+void Team::setPlayerKickStatus(uint8 playerNum, bool status){
+    // Handles the lock
+    #ifdef GSTHREADSAFE
+    QWriteLocker kicksLocker(_kicksLock);
+    // TODO: Fix fault at this point
+    #endif
+
+    // Sets the player speed
+    if (_validPlayers.value(playerNum)) {
+        (void) _kickEnabled.insert(playerNum, status);
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Team::setPlayerKickStatus(uint8, bool): No such Player #" << int(playerNum);
+        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        #endif
+    }
+}
+
 /*** 'setAngularSpeed' function
   ** Description: Sets the player angular speed
   ** Receives:    [playerNum]    The player number
@@ -299,7 +411,7 @@ void Team::setBallPossession(uint8 playerNum, bool possession) {
 /*** Gets functions
   ** Description: Gets the player pose, velocity and angular speed
   ** Receives:    [playerNum] The player number
-  ** Returns:     The player position, orientation, velocity or angular speed
+  ** Returns:     The player position, orientation, velocity, angular speed, battery or capacitor charges, kick or dribble status
   ***/
 const Position* Team::position(uint8 playerNum) const {
     // Handles the lock
@@ -411,6 +523,93 @@ bool Team::ballPossession(uint8 playerNum) const {
     return(false);
 }
 
+bool Team::kickEnabled(quint8 playerNum) const{
+    // Handles the lock
+    #ifdef GSTHREADSAFE
+    QReadLocker kicksLocker(_kicksLock);
+    // TODO: Fix fault at this point
+    #endif
+
+    // Returns the flag
+    if (_validPlayers.value(playerNum)) {
+        return(_kickEnabled.value(playerNum));
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Team::kickEnabled(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        #endif
+    }
+
+    // Returns 'false'
+    return(false);
+}
+
+bool Team::dribbleEnabled(quint8 playerNum) const{
+    // Handles the lock
+    #ifdef GSTHREADSAFE
+    QReadLocker dribblesLocker(_dribblesLock);
+    // TODO: Fix fault at this point
+    #endif
+
+    // Returns the flag
+    if (_validPlayers.value(playerNum)) {
+        return(_dribbleEnabled.value(playerNum));
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Team::dribbleEnabled(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        #endif
+    }
+
+    // Returns 'false'
+    return(false);
+}
+
+unsigned char Team::batteryCharge(quint8 playerNum) const{
+    // Handles the lock
+    #ifdef GSTHREADSAFE
+    QReadLocker batteriesLocker(_batteriesLock);
+    // TODO: Fix fault at this point
+    #endif
+
+    // Returns the flag
+    if (_validPlayers.value(playerNum)) {
+        return(_batteryCharge.value(playerNum));
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Team::batteryCharge(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        #endif
+    }
+
+    // Returns '0'
+    return(0);
+}
+
+unsigned char Team::capacitorCharge(quint8 playerNum) const{
+    // Handles the lock
+    #ifdef GSTHREADSAFE
+    QReadLocker capacitorsLocker(_capacitorsLock);
+    // TODO: Fix fault at this point
+    #endif
+
+    // Returns the flag
+    if (_validPlayers.value(playerNum)) {
+        return(_capacitorCharge.value(playerNum));
+    }
+    else {
+        #ifdef GSDEBUGMSG
+        cerr << ">> GEARSystem: Team::batteryCharge(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        #endif
+    }
+
+    // Returns '0'
+    return(0);
+}
 
 // Info functions
 bool Team::isValid() const { return(_valid); }

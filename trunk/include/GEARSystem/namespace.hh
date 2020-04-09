@@ -25,6 +25,7 @@ namespace GEARSystem {
     class Actuator;
     class Controller;
     class Sensor;
+    class RadioSensor;
     class Server;
 
     // CORBA Implementations
@@ -33,6 +34,7 @@ namespace GEARSystem {
         class CommandBus;
         class Controller;
         class Sensor;
+        class RadioSensor;
     }
 
     namespace CORBATypes {

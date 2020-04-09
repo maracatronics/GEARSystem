@@ -20,6 +20,7 @@
 #include <GEARSystem/CORBAImplementations/corbacontroller.hh>
 #include <GEARSystem/CORBAImplementations/corbasensor.hh>
 #include <GEARSystem/CORBAImplementations/corbacommandbus.hh>
+#include <GEARSystem/CORBAImplementations/corbaradiosensor.hh>
 
 
 // Selects namespace
@@ -36,7 +37,7 @@ using std::flush;
                   [commandBus] The Command Bus the server will handle
   ***/
 Server::Server(CORBAImplementations::Controller* controller, CORBAImplementations::Sensor* sensor,
-               CORBAImplementations::CommandBus* commandBus) {
+               CORBAImplementations::RadioSensor* radioSensor, CORBAImplementations::CommandBus* commandBus) {
     // Initializes the variables
     _orb = NULL;
     _poa = NULL;
@@ -45,9 +46,10 @@ Server::Server(CORBAImplementations::Controller* controller, CORBAImplementation
     _running     = false;
 
     // Sets the controlled elements
-    _controller = controller;
-    _sensor     = sensor;
-    _commandBus = commandBus;
+    _controller  =  controller;
+    _sensor      =  sensor;
+    _radioSensor =  radioSensor;
+    _commandBus  =  commandBus;
 }
 
 
@@ -138,6 +140,12 @@ bool Server::initialize() {
 
     // Binds the sensor
     ok = bindSensor();
+    if (!ok) {
+        return(false);
+    }
+
+    // Binds the radiosensor
+    ok = bindRadioSensor();
     if (!ok) {
         return(false);
     }
@@ -261,6 +269,40 @@ bool Server::bindSensor() {
 
     // Removes its reference
     _sensor->_remove_ref();
+
+
+    // Returns 'true' if everything went OK
+    return(true);
+}
+
+/*** 'bindRadioSensor' function
+  ** Description: Binds the RadioSensor at the name service
+  ** Receives:    Nothing
+  ** Returns:     'true' if everything went OK, 'false' otherwise
+  ***/
+bool Server::bindRadioSensor() {
+    // Activates the sensor at POA
+    (void) _poa->activate_object(_radioSensor);
+
+
+    // Binds it to a name
+    CORBA::Object_var objectReference;
+    objectReference = _radioSensor->_this();
+
+    CosNaming::Name objectName;
+    objectName.length(1);
+    objectName[0].id   = "GEARSystem";
+    objectName[0].kind = "RadioSensor";
+
+    bool ok;
+    ok = bindObjectToName(objectReference, objectName);
+    if (!ok) {
+        return(false);
+    }
+
+
+    // Removes its reference
+    _radioSensor->_remove_ref();
 
 
     // Returns 'true' if everything went OK
