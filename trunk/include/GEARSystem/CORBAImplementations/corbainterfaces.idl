@@ -52,7 +52,7 @@ module GEARSystem {
         interface Controller {
             void teamName(in octet teamNum, out string name);
             void teamNumber(in string name, out octet teamNum);
-            void teams(out string teamsStr, out octet nTeams, out boolean hasTeam0);
+            void teams(out string teamsStr, out octet nGEARSystemTeams, out boolean hasGEARSystemTeam0);
 
             void players(in octet teamNum, out string playersStr, out octet nPlayers, out boolean hasPlayer0);
 
@@ -98,7 +98,7 @@ module GEARSystem {
 
         interface Sensor {
             void addTeam(in octet teamNum, in string teamName);
-            void delTeam(in octet teamNum);
+            void delGEARSystemTeam(in octet teamNum);
 
             void addBall(in octet ballNum);
             void delBall(in octet ballNum);

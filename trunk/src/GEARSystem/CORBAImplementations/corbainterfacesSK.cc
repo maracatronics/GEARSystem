@@ -978,15 +978,15 @@ _0RL_lcfn_f9ba7d5cd2d6498c_f0000000(omniCallDescriptor* cd, omniServant* svnt)
 
 }
 
-void GEARSystem::CORBAInterfaces::_objref_Controller::teams(::CORBA::String_out teamsStr, ::CORBA::Octet& nTeams, ::CORBA::Boolean& hasTeam0)
+void GEARSystem::CORBAInterfaces::_objref_Controller::teams(::CORBA::String_out teamsStr, ::CORBA::Octet& nGEARSystemTeams, ::CORBA::Boolean& hasGEARSystemTeam0)
 {
   _0RL_cd_f9ba7d5cd2d6498c_e0000000 _call_desc(_0RL_lcfn_f9ba7d5cd2d6498c_f0000000, "teams", 6);
 
 
   _invoke(_call_desc);
   teamsStr = _call_desc.arg_0._retn();
-  nTeams = _call_desc.arg_1;
-  hasTeam0 = _call_desc.arg_2;
+  nGEARSystemTeams = _call_desc.arg_1;
+  hasGEARSystemTeam0 = _call_desc.arg_2;
 
 
 }
@@ -2916,7 +2916,7 @@ void GEARSystem::CORBAInterfaces::_objref_Sensor::addTeam(::CORBA::Octet teamNum
 
 
 //
-// Code for GEARSystem::CORBAInterfaces::Sensor::delTeam
+// Code for GEARSystem::CORBAInterfaces::Sensor::delGEARSystemTeam
 
 // Proxy call descriptor class. Mangled signature:
 //  void_i_coctet
@@ -2962,14 +2962,14 @@ _0RL_lcfn_f9ba7d5cd2d6498c_c3000000(omniCallDescriptor* cd, omniServant* svnt)
 {
   _0RL_cd_f9ba7d5cd2d6498c_b3000000* tcd = (_0RL_cd_f9ba7d5cd2d6498c_b3000000*)cd;
   GEARSystem::CORBAInterfaces::_impl_Sensor* impl = (GEARSystem::CORBAInterfaces::_impl_Sensor*) svnt->_ptrToInterface(GEARSystem::CORBAInterfaces::Sensor::_PD_repoId);
-  impl->delTeam(tcd->arg_0);
+  impl->delGEARSystemTeam(tcd->arg_0);
 
 
 }
 
-void GEARSystem::CORBAInterfaces::_objref_Sensor::delTeam(::CORBA::Octet teamNum)
+void GEARSystem::CORBAInterfaces::_objref_Sensor::delGEARSystemTeam(::CORBA::Octet teamNum)
 {
-  _0RL_cd_f9ba7d5cd2d6498c_b3000000 _call_desc(_0RL_lcfn_f9ba7d5cd2d6498c_c3000000, "delTeam", 8);
+  _0RL_cd_f9ba7d5cd2d6498c_b3000000 _call_desc(_0RL_lcfn_f9ba7d5cd2d6498c_c3000000, "delGEARSystemTeam", 18);
   _call_desc.arg_0 = teamNum;
 
   _invoke(_call_desc);
@@ -4109,9 +4109,9 @@ GEARSystem::CORBAInterfaces::_impl_Sensor::_dispatch(omniCallHandle& _handle)
     return 1;
   }
 
-  if (omni::strMatch(op, "delTeam")) {
+  if (omni::strMatch(op, "delGEARSystemTeam")) {
 
-    _0RL_cd_f9ba7d5cd2d6498c_b3000000 _call_desc(_0RL_lcfn_f9ba7d5cd2d6498c_c3000000, "delTeam", 8, 1);
+    _0RL_cd_f9ba7d5cd2d6498c_b3000000 _call_desc(_0RL_lcfn_f9ba7d5cd2d6498c_c3000000, "delGEARSystemTeam", 18, 1);
     
     _handle.upcall(this,_call_desc);
     return 1;

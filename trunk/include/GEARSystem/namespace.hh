@@ -15,7 +15,7 @@ namespace GEARSystem {
     class Goal;
     class Position;
     class Velocity;
-    class Team;
+    class GEARSystemTeam;
 
     // Game classes
     class WorldMap;

@@ -1,4 +1,4 @@
-/*** GEARSystem - Team implementation
+/*** GEARSystem - GEARSystemTeam implementation
   ** GEAR - Grupo de Estudos Avancados em Robotica
   ** Department of Electrical Engineering, University of Sao Paulo
   ** http://www.sel.eesc.usp.br/gear
@@ -28,7 +28,7 @@ using std::flush;
   ** Description: Creates an invalid team
   ** Recieves:    Nothing
   ***/
-Team::Team() {
+GEARSystemTeam::GEARSystemTeam() {
     // Sets as invalid
     setInvalid();
 
@@ -62,7 +62,7 @@ Team::Team() {
   ** Recieves:    [teamNumber] The team number
                   [teamName]   The team name
   ***/
-Team::Team(uint8 teamNumber, QString teamName) {
+GEARSystemTeam::GEARSystemTeam(uint8 teamNumber, QString teamName) {
     // Sets team info
     _number = teamNumber;
     _name   = teamName;
@@ -103,7 +103,7 @@ Team::Team(uint8 teamNumber, QString teamName) {
   ** Receives:    [playerNum] The player number
   ** Returns:     Nothing
   ***/
-void Team::addPlayer(uint8 playerNum) {
+void GEARSystemTeam::addPlayer(uint8 playerNum) {
     // Handles the locks
     #ifdef GSTHREADSAFE
     QWriteLocker positionsLocker(_positionsLock);
@@ -128,7 +128,7 @@ void Team::addPlayer(uint8 playerNum) {
     _nPlayers++;
 }
 
-void Team::delPlayer(uint8 playerNum) {
+void GEARSystemTeam::delPlayer(uint8 playerNum) {
     // Handles the locks
     #ifdef GSTHREADSAFE
     QWriteLocker positionsLocker(_positionsLock);
@@ -157,7 +157,7 @@ void Team::delPlayer(uint8 playerNum) {
     _nPlayers--;
 }
 
-QList<uint8> Team::players() const {
+QList<uint8> GEARSystemTeam::players() const {
     // Adds the players to the list
     QList<uint8> playersList;
     QHashIterator<uint8,Position*> it(_playersPositions);
@@ -170,13 +170,13 @@ QList<uint8> Team::players() const {
 }
 
 
-/*** Team info functions
+/*** GEARSystemTeam info functions
   ** Description: Controls team name and number
   ***/
-const QString& Team::name() const { return(_name); }
-uint8 Team::number() const { return(_number); }
-void  Team::setName(const QString& teamName) { _name = teamName; }
-void  Team::setNumber(uint8 teamNumber) {
+const QString& GEARSystemTeam::name() const { return(_name); }
+uint8 GEARSystemTeam::number() const { return(_number); }
+void  GEARSystemTeam::setName(const QString& teamName) { _name = teamName; }
+void  GEARSystemTeam::setNumber(uint8 teamNumber) {
     _valid  = true;
     _number = teamNumber;
 }
@@ -188,7 +188,7 @@ void  Team::setNumber(uint8 teamNumber) {
                   [thePosition] The player position
   ** Returns:     Nothing
   ***/
-void Team::setPosition(uint8 playerNum, const Position& thePosition) {
+void GEARSystemTeam::setPosition(uint8 playerNum, const Position& thePosition) {
     // Handles the lock
     #ifdef GSTHREADSAFE
     QWriteLocker positionsLocker(_positionsLock);
@@ -201,8 +201,8 @@ void Team::setPosition(uint8 playerNum, const Position& thePosition) {
     }
     else {
         #ifdef GSDEBUGMSG
-        //cerr << ">> GEARSystem: Team::setPosition(uint8, const Position&): No such Player #" << int(playerNum);
-        //cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        //cerr << ">> GEARSystem: GEARSystemTeam::setPosition(uint8, const Position&): No such Player #" << int(playerNum);
+        //cerr << " in GEARSystemTeam #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
 }
@@ -213,7 +213,7 @@ void Team::setPosition(uint8 playerNum, const Position& thePosition) {
                   [theOrientation] The player orientation
   ** Returns:     Nothing
   ***/
-void Team::setOrientation(uint8 playerNum, const Angle& theOrientation) {
+void GEARSystemTeam::setOrientation(uint8 playerNum, const Angle& theOrientation) {
     // Handles the lock
     #ifdef GSTHREADSAFE
     QWriteLocker orientationsLocker(_orientationsLock);
@@ -226,8 +226,8 @@ void Team::setOrientation(uint8 playerNum, const Angle& theOrientation) {
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::setOrientation(uint8, const Angle&): No such Player #" << int(playerNum);
-        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        cerr << ">> GEARSystem: GEARSystemTeam::setOrientation(uint8, const Angle&): No such Player #" << int(playerNum);
+        cerr << " in GEARSystemTeam #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
 }
@@ -238,7 +238,7 @@ void Team::setOrientation(uint8 playerNum, const Angle& theOrientation) {
                   [theVelocity]  The player velocity
   ** Returns:     Nothing
   ***/
-void Team::setVelocity(uint8 playerNum, const Velocity& theVelocity) {
+void GEARSystemTeam::setVelocity(uint8 playerNum, const Velocity& theVelocity) {
     // Handles the lock
     #ifdef GSTHREADSAFE
     QWriteLocker velocitiesLocker(_velocitiesLock);
@@ -251,8 +251,8 @@ void Team::setVelocity(uint8 playerNum, const Velocity& theVelocity) {
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::setVelocity(uint8, const Velocity&): No such Player #" << int(playerNum);
-        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        cerr << ">> GEARSystem: GEARSystemTeam::setVelocity(uint8, const Velocity&): No such Player #" << int(playerNum);
+        cerr << " in GEARSystemTeam #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
 }
@@ -263,7 +263,7 @@ void Team::setVelocity(uint8 playerNum, const Velocity& theVelocity) {
                   [charge]       The player battery charge
   ** Returns:     Nothing
   ***/
-void Team::setPlayerBatteryCharge(uint8 playerNum, unsigned char charge){
+void GEARSystemTeam::setPlayerBatteryCharge(uint8 playerNum, unsigned char charge){
     // Handles the lock
     #ifdef GSTHREADSAFE
     QWriteLocker batteriesLocker(_batteriesLock);
@@ -276,8 +276,8 @@ void Team::setPlayerBatteryCharge(uint8 playerNum, unsigned char charge){
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::setPlayerBattery(uint8, char): No such Player #" << int(playerNum);
-        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        cerr << ">> GEARSystem: GEARSystemTeam::setPlayerBattery(uint8, char): No such Player #" << int(playerNum);
+        cerr << " in GEARSystemTeam #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
 }
@@ -288,7 +288,7 @@ void Team::setPlayerBatteryCharge(uint8 playerNum, unsigned char charge){
                   [charge]       The player capacitor charge
   ** Returns:     Nothing
   ***/
-void Team::setPlayerCapacitorCharge(uint8 playerNum, unsigned char charge){
+void GEARSystemTeam::setPlayerCapacitorCharge(uint8 playerNum, unsigned char charge){
     // Handles the lock
     #ifdef GSTHREADSAFE
     QWriteLocker capacitorsLocker(_capacitorsLock);
@@ -301,8 +301,8 @@ void Team::setPlayerCapacitorCharge(uint8 playerNum, unsigned char charge){
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::setPlayerCapacitorCharge(uint8, char): No such Player #" << int(playerNum);
-        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        cerr << ">> GEARSystem: GEARSystemTeam::setPlayerCapacitorCharge(uint8, char): No such Player #" << int(playerNum);
+        cerr << " in GEARSystemTeam #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
 }
@@ -313,7 +313,7 @@ void Team::setPlayerCapacitorCharge(uint8 playerNum, unsigned char charge){
                   [charge]       The player dribble device status
   ** Returns:     Nothing
   ***/
-void Team::setPlayerDribbleStatus(uint8 playerNum, bool status){
+void GEARSystemTeam::setPlayerDribbleStatus(uint8 playerNum, bool status){
     // Handles the lock
     #ifdef GSTHREADSAFE
     QWriteLocker dribblesLocker(_dribblesLock);
@@ -326,8 +326,8 @@ void Team::setPlayerDribbleStatus(uint8 playerNum, bool status){
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::setPlayerDribbleStatus(uint8, bool): No such Player #" << int(playerNum);
-        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        cerr << ">> GEARSystem: GEARSystemTeam::setPlayerDribbleStatus(uint8, bool): No such Player #" << int(playerNum);
+        cerr << " in GEARSystemTeam #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
 }
@@ -338,7 +338,7 @@ void Team::setPlayerDribbleStatus(uint8 playerNum, bool status){
                   [charge]       The player kick device status
   ** Returns:     Nothing
   ***/
-void Team::setPlayerKickStatus(uint8 playerNum, bool status){
+void GEARSystemTeam::setPlayerKickStatus(uint8 playerNum, bool status){
     // Handles the lock
     #ifdef GSTHREADSAFE
     QWriteLocker kicksLocker(_kicksLock);
@@ -351,8 +351,8 @@ void Team::setPlayerKickStatus(uint8 playerNum, bool status){
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::setPlayerKickStatus(uint8, bool): No such Player #" << int(playerNum);
-        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        cerr << ">> GEARSystem: GEARSystemTeam::setPlayerKickStatus(uint8, bool): No such Player #" << int(playerNum);
+        cerr << " in GEARSystemTeam #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
 }
@@ -363,7 +363,7 @@ void Team::setPlayerKickStatus(uint8 playerNum, bool status){
                   [theAngularSpeed] The player angular speed
   ** Returns:     Nothing
   ***/
-void Team::setAngularSpeed(uint8 playerNum, const AngularSpeed& theAngularSpeed) {
+void GEARSystemTeam::setAngularSpeed(uint8 playerNum, const AngularSpeed& theAngularSpeed) {
     // Handles the lock
     #ifdef GSTHREADSAFE
     QWriteLocker angularSpeedsLocker(_angularSpeedsLock);
@@ -376,8 +376,8 @@ void Team::setAngularSpeed(uint8 playerNum, const AngularSpeed& theAngularSpeed)
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::setAngularSpeed(uint8, const AngularSpeed&): No such Player #" << int(playerNum);
-        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        cerr << ">> GEARSystem: GEARSystemTeam::setAngularSpeed(uint8, const AngularSpeed&): No such Player #" << int(playerNum);
+        cerr << " in GEARSystemTeam #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
 }
@@ -388,7 +388,7 @@ void Team::setAngularSpeed(uint8 playerNum, const AngularSpeed& theAngularSpeed)
                   [possession] 'true' if the player has the ball, 'false' otherwise
   ** Returns:     Nothing
   ***/
-void Team::setBallPossession(uint8 playerNum, bool possession) {
+void GEARSystemTeam::setBallPossession(uint8 playerNum, bool possession) {
     // Handles the lock
     #ifdef GSTHREADSAFE
     QWriteLocker possessionsLocker(_possessionsLock);
@@ -401,8 +401,8 @@ void Team::setBallPossession(uint8 playerNum, bool possession) {
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::setBallPossession(uint8, bool): No such Player #" << int(playerNum);
-        cerr << " in Team #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
+        cerr << ">> GEARSystem: GEARSystemTeam::setBallPossession(uint8, bool): No such Player #" << int(playerNum);
+        cerr << " in GEARSystemTeam #" << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
 }
@@ -413,7 +413,7 @@ void Team::setBallPossession(uint8 playerNum, bool possession) {
   ** Receives:    [playerNum] The player number
   ** Returns:     The player position, orientation, velocity, angular speed, battery or capacitor charges, kick or dribble status
   ***/
-const Position* Team::position(uint8 playerNum) const {
+const Position* GEARSystemTeam::position(uint8 playerNum) const {
     // Handles the lock
     #ifdef GSTHREADSAFE
     QReadLocker positionsLocker(_positionsLock);
@@ -426,7 +426,7 @@ const Position* Team::position(uint8 playerNum) const {
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::position(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << ">> GEARSystem: GEARSystemTeam::position(uint8): No such Player #" << int(playerNum) << " in GEARSystemTeam #";
         cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
@@ -435,7 +435,7 @@ const Position* Team::position(uint8 playerNum) const {
     return(_invalidPosition);
 }
 
-const Angle* Team::orientation(uint8 playerNum) const {
+const Angle* GEARSystemTeam::orientation(uint8 playerNum) const {
     // Handles the lock
     #ifdef GSTHREADSAFE
     QReadLocker orientationsLocker(_orientationsLock);
@@ -448,7 +448,7 @@ const Angle* Team::orientation(uint8 playerNum) const {
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::orientation(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << ">> GEARSystem: GEARSystemTeam::orientation(uint8): No such Player #" << int(playerNum) << " in GEARSystemTeam #";
         cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
@@ -457,7 +457,7 @@ const Angle* Team::orientation(uint8 playerNum) const {
     return(_invalidAngle);
 }
 
-const Velocity* Team::velocity(uint8 playerNum) const {
+const Velocity* GEARSystemTeam::velocity(uint8 playerNum) const {
     // Handles the lock
     #ifdef GSTHREADSAFE
     QReadLocker velocitiesLocker(_velocitiesLock);
@@ -470,7 +470,7 @@ const Velocity* Team::velocity(uint8 playerNum) const {
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::velocity(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << ">> GEARSystem: GEARSystemTeam::velocity(uint8): No such Player #" << int(playerNum) << " in GEARSystemTeam #";
         cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
@@ -479,7 +479,7 @@ const Velocity* Team::velocity(uint8 playerNum) const {
     return(_invalidVelocity);
 }
 
-const AngularSpeed* Team::angularSpeed(uint8 playerNum) const {
+const AngularSpeed* GEARSystemTeam::angularSpeed(uint8 playerNum) const {
     // Handles the lock
     #ifdef GSTHREADSAFE
     QReadLocker angularSpeedsLocker(_angularSpeedsLock);
@@ -492,7 +492,7 @@ const AngularSpeed* Team::angularSpeed(uint8 playerNum) const {
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::angularSpeed(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << ">> GEARSystem: GEARSystemTeam::angularSpeed(uint8): No such Player #" << int(playerNum) << " in GEARSystemTeam #";
         cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
@@ -501,7 +501,7 @@ const AngularSpeed* Team::angularSpeed(uint8 playerNum) const {
     return(_invalidAngularSpeed);
 }
 
-bool Team::ballPossession(uint8 playerNum) const {
+bool GEARSystemTeam::ballPossession(uint8 playerNum) const {
     // Handles the lock
     #ifdef GSTHREADSAFE
     QReadLocker possessionsLocker(_possessionsLock);
@@ -514,7 +514,7 @@ bool Team::ballPossession(uint8 playerNum) const {
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::ballPossession(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << ">> GEARSystem: GEARSystemTeam::ballPossession(uint8): No such Player #" << int(playerNum) << " in GEARSystemTeam #";
         cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
@@ -523,7 +523,7 @@ bool Team::ballPossession(uint8 playerNum) const {
     return(false);
 }
 
-bool Team::kickEnabled(quint8 playerNum) const{
+bool GEARSystemTeam::kickEnabled(quint8 playerNum) const{
     // Handles the lock
     #ifdef GSTHREADSAFE
     QReadLocker kicksLocker(_kicksLock);
@@ -536,7 +536,7 @@ bool Team::kickEnabled(quint8 playerNum) const{
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::kickEnabled(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << ">> GEARSystem: GEARSystemTeam::kickEnabled(uint8): No such Player #" << int(playerNum) << " in GEARSystemTeam #";
         cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
@@ -545,7 +545,7 @@ bool Team::kickEnabled(quint8 playerNum) const{
     return(false);
 }
 
-bool Team::dribbleEnabled(quint8 playerNum) const{
+bool GEARSystemTeam::dribbleEnabled(quint8 playerNum) const{
     // Handles the lock
     #ifdef GSTHREADSAFE
     QReadLocker dribblesLocker(_dribblesLock);
@@ -558,7 +558,7 @@ bool Team::dribbleEnabled(quint8 playerNum) const{
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::dribbleEnabled(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << ">> GEARSystem: GEARSystemTeam::dribbleEnabled(uint8): No such Player #" << int(playerNum) << " in GEARSystemTeam #";
         cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
@@ -567,7 +567,7 @@ bool Team::dribbleEnabled(quint8 playerNum) const{
     return(false);
 }
 
-unsigned char Team::batteryCharge(quint8 playerNum) const{
+unsigned char GEARSystemTeam::batteryCharge(quint8 playerNum) const{
     // Handles the lock
     #ifdef GSTHREADSAFE
     QReadLocker batteriesLocker(_batteriesLock);
@@ -580,7 +580,7 @@ unsigned char Team::batteryCharge(quint8 playerNum) const{
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::batteryCharge(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << ">> GEARSystem: GEARSystemTeam::batteryCharge(uint8): No such Player #" << int(playerNum) << " in GEARSystemTeam #";
         cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
@@ -589,7 +589,7 @@ unsigned char Team::batteryCharge(quint8 playerNum) const{
     return(0);
 }
 
-unsigned char Team::capacitorCharge(quint8 playerNum) const{
+unsigned char GEARSystemTeam::capacitorCharge(quint8 playerNum) const{
     // Handles the lock
     #ifdef GSTHREADSAFE
     QReadLocker capacitorsLocker(_capacitorsLock);
@@ -602,7 +602,7 @@ unsigned char Team::capacitorCharge(quint8 playerNum) const{
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Team::batteryCharge(uint8): No such Player #" << int(playerNum) << " in Team #";
+        cerr << ">> GEARSystem: GEARSystemTeam::batteryCharge(uint8): No such Player #" << int(playerNum) << " in GEARSystemTeam #";
         cerr << int(_number) << "(" << _name.toStdString() << ")!!" << endl << flush;
         #endif
     }
@@ -612,8 +612,8 @@ unsigned char Team::capacitorCharge(quint8 playerNum) const{
 }
 
 // Info functions
-bool Team::isValid() const { return(_valid); }
-void Team::setInvalid() {
+bool GEARSystemTeam::isValid() const { return(_valid); }
+void GEARSystemTeam::setInvalid() {
     _valid = false;
     _validPlayers.clear();
 }

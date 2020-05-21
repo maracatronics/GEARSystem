@@ -1,4 +1,4 @@
-/*** GEARSystem - Team class
+/*** GEARSystem - GEARSystemTeam class
   ** GEAR - Grupo de Estudos Avancados em Robotica
   ** Department of Electrical Engineering, University of Sao Paulo
   ** http://www.sel.eesc.usp.br/gear
@@ -24,17 +24,17 @@
 using namespace GEARSystem;
 
 
-/*** 'Team' class
+/*** 'GEARSystemTeam' class
   ** Description: This class handles a team
   ** Comments:    This class is reentrant and thread-safe
   ***/
-class GEARSystem::Team {
+class GEARSystem::GEARSystemTeam {
     private:
-        // Team info
+        // GEARSystemTeam info
         uint8   _number;
         QString _name;
 
-        // Team players
+        // GEARSystemTeam players
         uint8 _nPlayers;
         QHash<uint8,bool>          _validPlayers;
         QHash<uint8,Position*>     _playersPositions;
@@ -75,14 +75,14 @@ class GEARSystem::Team {
           ** Description: Creates an invalid team
           ** Recieves:    Nothing
           ***/
-        Team();
+        GEARSystemTeam();
 
         /*** Constructor
           ** Description: Creates a team
           ** Recieves:    [number] The team number
                           [name]   The team name
           ***/
-        Team(uint8 number, QString name);
+        GEARSystemTeam(uint8 number, QString name);
 
 
     public:
@@ -95,7 +95,7 @@ class GEARSystem::Team {
         void delPlayer(uint8 playerNum);
         QList<uint8> players() const;
 
-        /*** Team info functions
+        /*** GEARSystemTeam info functions
           ** Description: Controls team name and number
           ***/
         const QString& name() const;

@@ -130,7 +130,7 @@ void Sensor::disconnect() {
 bool Sensor::isConnected() const { return(_isConnected); }
 
 
-/*** Teams handling functions
+/*** GEARSystemTeams handling functions
   ** Description: Handles the teams
   ** Receives:    [teamNum]  The team number
                   [teamName] The team name
@@ -159,24 +159,24 @@ void Sensor::addTeam(uint8 teamNum, const QString& teamName) {
     }
 }
 
-void Sensor::delTeam(uint8 teamNum) {
+void Sensor::delGEARSystemTeam(uint8 teamNum) {
     // Deletes the team
     if (isConnected()) {
         try {
-            _corbaSensor->delTeam(teamNum);
+            _corbaSensor->delGEARSystemTeam(teamNum);
         }
 
         // Handles CORBA exceptions
         catch (const CORBA::Exception& exception) {
             #ifdef GSDEBUGMSG
-            cerr << ">> GEARSystem: Sensor::delTeam(uint8): ";
+            cerr << ">> GEARSystem: Sensor::delGEARSystemTeam(uint8): ";
             cerr << "Caught CORBA exception: " << exception._name() << "!!" << endl << flush;
             #endif
         }
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: Sensor::delTeam(uint8): ";
+        cerr << ">> GEARSystem: Sensor::delGEARSystemTeam(uint8): ";
         cerr << "The sensor is not connected!!" << endl << flush;
         #endif
     }

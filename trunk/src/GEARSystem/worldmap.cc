@@ -30,10 +30,10 @@ using std::flush;
   ***/
 WorldMap::WorldMap() {
     // Initializes the variables
-    _nTeams = 0;
+    _nGEARSystemTeams = 0;
     _nBalls = 0;
 
-    _validTeams.clear();
+    _validGEARSystemTeams.clear();
     _teams.clear();
     _validBalls.clear();
     _ballsPositions.clear();
@@ -53,7 +53,7 @@ WorldMap::~WorldMap() {
     //#endif
 }
 
-/*** Teams handling functions
+/*** GEARSystemTeams handling functions
   ** Description: Handles the teams
   ** Receives:    [teamNum] The team number
                   [name]    The team name
@@ -68,12 +68,12 @@ void WorldMap::addTeam(uint8 teamNum, const QString& name) {
 
     // Adds the team
     (void) _teams.remove(teamNum);
-    (void) _validTeams.insert(teamNum, true);
-    _teams[teamNum] = Team(teamNum, name);
-    _nTeams++;
+    (void) _validGEARSystemTeams.insert(teamNum, true);
+    _teams[teamNum] = GEARSystemTeam(teamNum, name);
+    _nGEARSystemTeams++;
 }
 
-void WorldMap::delTeam(uint8 teamNum) {
+void WorldMap::delGEARSystemTeam(uint8 teamNum) {
     // Handles the lock
     //#ifdef GSTHREADSAFE
     QWriteLocker teamsLocker(_teamsLock);
@@ -81,9 +81,9 @@ void WorldMap::delTeam(uint8 teamNum) {
     //#endif
 
     // Deletes the team
-    (void) _validTeams.remove(teamNum);
+    (void) _validGEARSystemTeams.remove(teamNum);
     (void) _teams.remove(teamNum);
-    _nTeams--;
+    _nGEARSystemTeams--;
 }
 
 QList<uint8> WorldMap::teams() const {
@@ -95,7 +95,7 @@ QList<uint8> WorldMap::teams() const {
 
     // Adds the teams to the list
     QList<uint8> teamsList;
-    QHashIterator<uint8,Team> it(_teams);
+    QHashIterator<uint8,GEARSystemTeam> it(_teams);
     while (it.hasNext()) {
         teamsList.append(it.next().key());
     }
@@ -105,7 +105,7 @@ QList<uint8> WorldMap::teams() const {
 }
 
 
-/*** Team info functions
+/*** GEARSystemTeam info functions
   ** Description: Controls team name and number
   ***/
 const QString WorldMap::teamName(uint8 teamNum) const {
@@ -116,12 +116,12 @@ const QString WorldMap::teamName(uint8 teamNum) const {
     //#endif
 
     // Returns the team name
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         return(_teams[teamNum].name());
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::teamName(uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::teamName(uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -138,7 +138,7 @@ uint8 WorldMap::teamNumber(const QString& name) const {
     //#endif
 
     // Runs the teams searching for the wanted name
-    QHashIterator<uint8,Team> it(_teams);
+    QHashIterator<uint8,GEARSystemTeam> it(_teams);
     while (it.hasNext()) {
         it.next();
         if (it.value().name() == name) {
@@ -147,7 +147,7 @@ uint8 WorldMap::teamNumber(const QString& name) const {
     }
 
     #ifdef GSDEBUGMSG
-    cerr << ">> GEARSystem: WorldMap::teamNumber(const QString&): No such Team ";
+    cerr << ">> GEARSystem: WorldMap::teamNumber(const QString&): No such GEARSystemTeam ";
     cerr << name.toStdString() << " in this map!!" << endl << flush;
     #endif
 
@@ -325,12 +325,12 @@ void WorldMap::addPlayer(uint8 teamNum, uint8 playerNum) {
     //#endif
 
     // Adds the player
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].addPlayer(playerNum);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::addPlayer(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::addPlayer(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -344,12 +344,12 @@ void WorldMap::delPlayer(uint8 teamNum, uint8 playerNum) {
     //#endif
 
     // Deletes the player
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].delPlayer(playerNum);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::delPlayer(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::delPlayer(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -363,12 +363,12 @@ QList<uint8> WorldMap::players(uint8 teamNum) const {
     //#endif
 
     // Returns the players list
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         return(_teams[teamNum].players());
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::players(uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::players(uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -392,9 +392,9 @@ const Position& WorldMap::playerPosition(uint8 teamNum, uint8 playerNum) const {
     //#endif
 
     // Returns an invalid position
-    if (!_validTeams.value(teamNum)) {
+    if (!_validGEARSystemTeams.value(teamNum)) {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::playerPosition(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::playerPosition(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
         return(_invalidPosition);
@@ -412,9 +412,9 @@ const Angle& WorldMap::playerOrientation(uint8 teamNum, uint8 playerNum) const {
     //#endif
 
     // Returns an invalid orientation
-    if (!_validTeams.value(teamNum)) {
+    if (!_validGEARSystemTeams.value(teamNum)) {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::playerOrientation(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::playerOrientation(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
         return(_invalidAngle);
@@ -432,9 +432,9 @@ const Velocity& WorldMap::playerVelocity(uint8 teamNum, uint8 playerNum) const {
     //#endif
 
     // Returns an invalid velocity
-    if (!_validTeams.value(teamNum)) {
+    if (!_validGEARSystemTeams.value(teamNum)) {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::playerVelocity(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::playerVelocity(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
         return(_invalidVelocity);
@@ -452,9 +452,9 @@ const AngularSpeed& WorldMap::playerAngularSpeed(uint8 teamNum, uint8 playerNum)
     //#endif
 
     // Returns an invalid speed
-    if (!_validTeams.value(teamNum)) {
+    if (!_validGEARSystemTeams.value(teamNum)) {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::playerAngularSpeed(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::playerAngularSpeed(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
         return(_invalidAngularSpeed);
@@ -472,9 +472,9 @@ bool WorldMap::ballPossession(uint8 teamNum, uint8 playerNum) const {
     //#endif
 
     // Returns the flag
-    if (!_validTeams.value(teamNum)) {
+    if (!_validGEARSystemTeams.value(teamNum)) {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::ballPossession(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::ballPossession(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
         return(false);
@@ -492,9 +492,9 @@ bool WorldMap::kickEnabled(quint8 teamNum, quint8 playerNum) const {
     //#endif
 
     // Returns the flag
-    if (!_validTeams.value(teamNum)) {
+    if (!_validGEARSystemTeams.value(teamNum)) {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::kickEnabled(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::kickEnabled(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
         return(false);
@@ -512,9 +512,9 @@ bool WorldMap::dribbleEnabled(quint8 teamNum, quint8 playerNum) const {
     //#endif
 
     // Returns the flag
-    if (!_validTeams.value(teamNum)) {
+    if (!_validGEARSystemTeams.value(teamNum)) {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::dribbleEnabled(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::dribbleEnabled(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
         return(false);
@@ -532,9 +532,9 @@ unsigned char WorldMap::batteryCharge(quint8 teamNum, quint8 playerNum) const {
     //#endif
 
     // Returns the flag
-    if (!_validTeams.value(teamNum)) {
+    if (!_validGEARSystemTeams.value(teamNum)) {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::batteryCharge(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::batteryCharge(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
         return(false);
@@ -552,9 +552,9 @@ unsigned char WorldMap::capacitorCharge(quint8 teamNum, quint8 playerNum) const 
     //#endif
 
     // Returns the flag
-    if (!_validTeams.value(teamNum)) {
+    if (!_validGEARSystemTeams.value(teamNum)) {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::capacitorCharge(uint8, uint8): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::capacitorCharge(uint8, uint8): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
         return(false);
@@ -579,12 +579,12 @@ void WorldMap::setPlayerPosition(uint8 teamNum, uint8 playerNum, const Position&
     //#endif
 
     // Sets the player position
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].setPosition(playerNum, position);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::setPlayerPosition(uint8, uint8, const Position&): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::setPlayerPosition(uint8, uint8, const Position&): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -605,12 +605,12 @@ void WorldMap::setPlayerOrientation(uint8 teamNum, uint8 playerNum, const Angle&
     //#endif
 
     // Sets the player orientation
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].setOrientation(playerNum, orientation);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::setPlayerOrientation(uint8, uint8, const Orientation&): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::setPlayerOrientation(uint8, uint8, const Orientation&): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -631,12 +631,12 @@ void WorldMap::setPlayerVelocity(uint8 teamNum, uint8 playerNum, const Velocity&
     //#endif
 
     // Sets the player velocity
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].setVelocity(playerNum, velocity);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::setPlayerVelocity(uint8, uint8, const Velocity&): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::setPlayerVelocity(uint8, uint8, const Velocity&): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -658,12 +658,12 @@ void WorldMap::setPlayerAngularSpeed(uint8 teamNum, uint8 playerNum, const Angul
     //#endif
 
     // Sets the player angular speed
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].setAngularSpeed(playerNum, angularSpeed);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::setPlayerAngularSpeed(uint8, uint8, const AngularSpeed&): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::setPlayerAngularSpeed(uint8, uint8, const AngularSpeed&): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -685,12 +685,12 @@ void WorldMap::setBallPossession(uint8 teamNum, uint8 playerNum, bool possession
     //#endif
 
     // Sets the flag
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].setBallPossession(playerNum, possession);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::setBallPossession(uint8, uint8, bool): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::setBallPossession(uint8, uint8, bool): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -711,12 +711,12 @@ void WorldMap::setKickEnabled(uint8 teamNum, uint8 playerNum, bool status){
     //#endif
 
     // Sets the flag
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].setPlayerKickStatus(playerNum, status);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::setKickEnabled(uint8, uint8, bool): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::setKickEnabled(uint8, uint8, bool): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -737,12 +737,12 @@ void WorldMap::setDribbleEnabled(uint8 teamNum, uint8 playerNum, bool status){
     //#endif
 
     // Sets the flag
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].setPlayerDribbleStatus(playerNum, status);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::setDribbleEnabled(uint8, uint8, bool): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::setDribbleEnabled(uint8, uint8, bool): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -764,12 +764,12 @@ void WorldMap::setBatteryCharge(uint8 teamNum, uint8 playerNum, unsigned char ch
     //#endif
 
     // Sets the flag
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].setPlayerBatteryCharge(playerNum, charge);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::setBatteryCharge(uint8, uint8, char): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::setBatteryCharge(uint8, uint8, char): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }
@@ -791,12 +791,12 @@ void WorldMap::setCapacitorCharge(uint8 teamNum, uint8 playerNum, unsigned char 
     //#endif
 
     // Sets the flag
-    if (_validTeams.value(teamNum)) {
+    if (_validGEARSystemTeams.value(teamNum)) {
         _teams[teamNum].setPlayerCapacitorCharge(playerNum, charge);
     }
     else {
         #ifdef GSDEBUGMSG
-        cerr << ">> GEARSystem: WorldMap::setBallPossession(uint8, uint8, char): No such Team #";
+        cerr << ">> GEARSystem: WorldMap::setBallPossession(uint8, uint8, char): No such GEARSystemTeam #";
         cerr << int(teamNum) << " in this map!!" << endl << flush;
         #endif
     }

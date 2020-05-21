@@ -71,11 +71,11 @@ class GEARSystem::CORBAImplementations::Controller : public POA_GEARSystem::CORB
         /*** 'teams' function
           ** Description: Gets the created teams
           ** Receives:    [teamsStr] A reference to where the stringfied teams list will be stored
-                          [nTeams]   A reference to where the number of teams will be stored
-                          [hasTeam0] A reference to where the Team #0 flag will be stored
+                          [nGEARSystemTeams]   A reference to where the number of teams will be stored
+                          [hasGEARSystemTeam0] A reference to where the GEARSystemTeam #0 flag will be stored
           ** Returns:     Nothing
           ***/
-        virtual void teams(String_out teamsStr, Octet& nTeams, Boolean& hasTeam0);
+        virtual void teams(String_out teamsStr, Octet& nGEARSystemTeams, Boolean& hasGEARSystemTeam0);
 
 
     public:

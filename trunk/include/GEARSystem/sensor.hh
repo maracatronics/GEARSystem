@@ -73,14 +73,14 @@ class GEARSystem::Sensor {
 
 
     public:
-        /*** Teams handling functions
+        /*** GEARSystemTeams handling functions
           ** Description: Handles the teams
           ** Receives:    [teamNum]  The team number
                           [teamName] The team name
           ** Returns:     Nothing
           ***/
         void addTeam(uint8 teamNum, const QString& teamName);
-        void delTeam(uint8 teamNum);
+        void delGEARSystemTeam(uint8 teamNum);
 
 
     public:

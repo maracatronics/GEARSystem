@@ -48,14 +48,14 @@ class GEARSystem::CORBAImplementations::Sensor : public POA_GEARSystem::CORBAInt
 
 
     public:
-        /*** Teams handling functions
+        /*** GEARSystemTeams handling functions
           ** Description: Handles the teams
           ** Receives:    [teamNum]  The team number
                           [teamName] The team name
           ** Returns:     Nothing
           ***/
         virtual void addTeam(Octet teamNum, const char* teamName);
-        virtual void delTeam(Octet teamNum);
+        virtual void delGEARSystemTeam(Octet teamNum);
 
 
     public:

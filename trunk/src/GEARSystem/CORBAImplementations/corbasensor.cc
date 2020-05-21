@@ -31,7 +31,7 @@ CORBAImplementations::Sensor::Sensor(WorldMap* worldMap) {
 }
 
 
-/*** Teams handling functions
+/*** GEARSystemTeams handling functions
   ** Description: Handles the teams
   ** Receives:    [teamNum]  The team number
                   [teamName] The team name
@@ -41,9 +41,9 @@ void CORBAImplementations::Sensor::addTeam(Octet teamNum, const char* teamName) 
     // Adds the team
     _worldMap->addTeam(teamNum, QString(teamName));
 }
-void CORBAImplementations::Sensor::delTeam(Octet teamNum) {
+void CORBAImplementations::Sensor::delGEARSystemTeam(Octet teamNum) {
     // Deletes the team
-    _worldMap->delTeam(teamNum);
+    _worldMap->delGEARSystemTeam(teamNum);
 }
 
 

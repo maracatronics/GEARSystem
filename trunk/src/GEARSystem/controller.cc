@@ -208,20 +208,20 @@ QList<uint8> Controller::teams() const {
         try {
             // Gets the stringfied teams list
             String_var teamsCorba;
-            uint8      nTeams;
-            bool       hasTeam0;
-            _corbaController->teams(teamsCorba, nTeams, hasTeam0);
+            uint8      nGEARSystemTeams;
+            bool       hasGEARSystemTeam0;
+            _corbaController->teams(teamsCorba, nGEARSystemTeams, hasGEARSystemTeam0);
             char* teamsStr = (char*) teamsCorba;
 
             // Recreates the list
             QList<uint8> list;
-            if (hasTeam0) {
+            if (hasGEARSystemTeam0) {
                 list.append(0);
-                nTeams--;
+                nGEARSystemTeams--;
             }
 
             uint16 i;
-            for (i = 0; i < nTeams; i++) {
+            for (i = 0; i < nGEARSystemTeams; i++) {
                 list.append(teamsStr[i]);
             }
 

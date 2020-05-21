@@ -62,17 +62,17 @@ void CORBAImplementations::Controller::teamNumber(const char* name, Octet& teamN
 /*** 'teams' function
   ** Description: Gets the created teams
   ** Receives:    [teamsStr] A reference to where the stringfied teams list will be stored
-                  [nTeams]   A reference to where the number of teams will be stored
-                  [hasTeam0] A reference to where the Team #0 flag will be stored
+                  [nGEARSystemTeams]   A reference to where the number of teams will be stored
+                  [hasGEARSystemTeam0] A reference to where the GEARSystemTeam #0 flag will be stored
   ** Returns:     Nothing
   ***/
-void CORBAImplementations::Controller::teams(String_out teamsStr, Octet& nTeams, Boolean& hasTeam0) {
+void CORBAImplementations::Controller::teams(String_out teamsStr, Octet& nGEARSystemTeams, Boolean& hasGEARSystemTeam0) {
     // Gets the teams list
     QList<uint8> list(_worldMap->teams());
     QListIterator<uint8> it(list);
 
     // Stringfies it
-    hasTeam0 = false;
+    hasGEARSystemTeam0 = false;
 
     char* str = new char[list.size()+1];
     str[list.size()-1] = '\0';
@@ -86,13 +86,13 @@ void CORBAImplementations::Controller::teams(String_out teamsStr, Octet& nTeams,
             str[i] = number;
         }
         else {
-            hasTeam0 = true;
+            hasGEARSystemTeam0 = true;
             i--;
         }
     }
 
     // Returns the stringfied list
-    nTeams = list.size();
+    nGEARSystemTeams = list.size();
     teamsStr = CORBA::string_dup(str);
 }
 

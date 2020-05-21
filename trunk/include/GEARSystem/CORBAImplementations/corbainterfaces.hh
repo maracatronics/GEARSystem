@@ -347,7 +347,7 @@ _CORBA_MODULE_BEG
       // IDL operations
       void teamName(::CORBA::Octet teamNum, ::CORBA::String_out name);
       void teamNumber(const char* name, ::CORBA::Octet& teamNum);
-      void teams(::CORBA::String_out teamsStr, ::CORBA::Octet& nTeams, ::CORBA::Boolean& hasTeam0);
+      void teams(::CORBA::String_out teamsStr, ::CORBA::Octet& nGEARSystemTeams, ::CORBA::Boolean& hasGEARSystemTeam0);
       void players(::CORBA::Octet teamNum, ::CORBA::String_out playersStr, ::CORBA::Octet& nPlayers, ::CORBA::Boolean& hasPlayer0);
       void balls(::CORBA::String_out ballsStr, ::CORBA::Octet& nBalls, ::CORBA::Boolean& hasBall0);
       void ballPosition(::CORBA::Octet ballNum, ::GEARSystem::CORBATypes::Position& position);
@@ -413,7 +413,7 @@ _CORBA_MODULE_BEG
 
       virtual void teamName(::CORBA::Octet teamNum, ::CORBA::String_out name) = 0;
       virtual void teamNumber(const char* name, ::CORBA::Octet& teamNum) = 0;
-      virtual void teams(::CORBA::String_out teamsStr, ::CORBA::Octet& nTeams, ::CORBA::Boolean& hasTeam0) = 0;
+      virtual void teams(::CORBA::String_out teamsStr, ::CORBA::Octet& nGEARSystemTeams, ::CORBA::Boolean& hasGEARSystemTeam0) = 0;
       virtual void players(::CORBA::Octet teamNum, ::CORBA::String_out playersStr, ::CORBA::Octet& nPlayers, ::CORBA::Boolean& hasPlayer0) = 0;
       virtual void balls(::CORBA::String_out ballsStr, ::CORBA::Octet& nBalls, ::CORBA::Boolean& hasBall0) = 0;
       virtual void ballPosition(::CORBA::Octet ballNum, ::GEARSystem::CORBATypes::Position& position) = 0;
@@ -523,7 +523,7 @@ _CORBA_MODULE_BEG
     public:
       // IDL operations
       void addTeam(::CORBA::Octet teamNum, const char* teamName);
-      void delTeam(::CORBA::Octet teamNum);
+      void delGEARSystemTeam(::CORBA::Octet teamNum);
       void addBall(::CORBA::Octet ballNum);
       void delBall(::CORBA::Octet ballNum);
       void setBallPosition(::CORBA::Octet ballNum, const ::GEARSystem::CORBATypes::Position& position);
@@ -582,7 +582,7 @@ _CORBA_MODULE_BEG
       virtual ~_impl_Sensor();
 
       virtual void addTeam(::CORBA::Octet teamNum, const char* teamName) = 0;
-      virtual void delTeam(::CORBA::Octet teamNum) = 0;
+      virtual void delGEARSystemTeam(::CORBA::Octet teamNum) = 0;
       virtual void addBall(::CORBA::Octet ballNum) = 0;
       virtual void delBall(::CORBA::Octet ballNum) = 0;
       virtual void setBallPosition(::CORBA::Octet ballNum, const ::GEARSystem::CORBATypes::Position& position) = 0;
