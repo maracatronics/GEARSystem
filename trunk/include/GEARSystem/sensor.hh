@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSSENSOR
-#define GSSENSOR
+#ifndef SENSOR_HH
+#define SENSOR_HH
 
 
 // Includes GEARSystem
@@ -189,4 +189,4 @@ class GEARSystem::Sensor {
 };
 
 
-#endif
+#endif // SENSOR_HH

@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSTEAM
-#define GSTEAM
+#ifndef TEAM_HH
+#define TEAM_HH
 
 
 // Includes GEARSystem
@@ -190,4 +190,4 @@ class GEARSystem::GEARSystemTeam {
 };
 
 
-#endif
+#endif // TEAM_HH

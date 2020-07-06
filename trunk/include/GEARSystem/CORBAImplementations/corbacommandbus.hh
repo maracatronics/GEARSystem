@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSCORBACOMMANDBUS
-#define GSCORBACOMMANDBUS
+#ifndef CORBACOMMANDBUS_HH
+#define CORBACOMMANDBUS_HH
 
 
 // Includes GEARSystem
@@ -54,4 +54,4 @@ class GEARSystem::CORBAImplementations::CommandBus : public POA_GEARSystem::CORB
 };
 
 
-#endif
+#endif // CORBACOMMANDBUS_HH

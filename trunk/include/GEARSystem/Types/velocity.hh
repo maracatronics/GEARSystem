@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSVELOCITY
-#define GSVELOCITY
+#ifndef VELOCITY_HH
+#define VELOCITY_HH
 
 
 // Includes GEARSystem
@@ -162,4 +162,4 @@ class GEARSystem::Velocity {
 };
 
 
-#endif
+#endif // VELOCITY_HH

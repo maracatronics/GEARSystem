@@ -5,6 +5,8 @@
   ** This file is part of the GEARSystem project
   ***/
 
+#ifndef NAMESPACE_HH
+#define NAMESPACE_HH
 
 // Defines the GEARSystem namespace
 namespace GEARSystem {
@@ -44,3 +46,5 @@ namespace GEARSystem {
         class Velocity;
     }
 }
+
+#endif // NAMESPACE_HH

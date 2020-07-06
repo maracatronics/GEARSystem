@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSRADIOSENSOR
-#define GSRADIOSENSOR
+#ifndef RADIOSENSOR_HH
+#define RADIOSENSOR_HH
 
 
 // Includes GEARSystem
@@ -85,4 +85,4 @@ class GEARSystem::RadioSensor {
 };
 
 
-#endif
+#endif //S RADIOSENSOR_HH

@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSCONTROLLER
-#define GSCONTROLLER
+#ifndef CONTROLLER_HH
+#define CONTROLLER_HH
 
 
 // Includes GEARSystem
@@ -246,4 +246,4 @@ class GEARSystem::Controller {
 };
 
 
-#endif
+#endif // CONTROLLER_HH

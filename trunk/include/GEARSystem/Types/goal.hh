@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSGOAL
-#define GSGOAL
+#ifndef GOAL_HH
+#define GOAL_HH
 
 
 // Includes GEARSystem
@@ -86,4 +86,4 @@ class GEARSystem::Goal {
 };
 
 
-#endif
+#endif // GOAL_HH

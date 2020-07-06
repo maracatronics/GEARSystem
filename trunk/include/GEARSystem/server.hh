@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSSERVER
-#define GSSERVER
+#ifndef SERVER_HH
+#define SERVER_HH
 
 
 // Includes GEARSystem
@@ -133,4 +133,4 @@ class GEARSystem::Server {
 };
 
 
-#endif
+#endif // SERVER_HH

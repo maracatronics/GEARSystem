@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSFIELD
-#define GSFIELD
+#ifndef FIELD_HH
+#define FIELD_HH
 
 
 // Includes GEARSystem
@@ -109,4 +109,4 @@ class GEARSystem::Field {
 };
 
 
-#endif
+#endif // FIELD_HH

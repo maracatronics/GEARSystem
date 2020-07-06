@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSWORLDMAP
-#define GSWORLDMAP
+#ifndef GSWORLDMAP_HH
+#define GSWORLDMAP_HH
 
 
 // Includes GEARSystem
@@ -283,4 +283,4 @@ class GEARSystem::WorldMap {
 };
 
 
-#endif
+#endif // WORLDMAP_HH

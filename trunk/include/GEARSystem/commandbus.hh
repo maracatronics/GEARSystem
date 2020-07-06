@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSCOMMANDBUS
-#define GSCOMMANDBUS
+#ifndef COMMANDBUS_HH
+#define COMMANDBUS_HH
 
 
 // Includes GEARSystem
@@ -134,4 +134,4 @@ class GEARSystem::CommandBus {
 };
 
 
-#endif
+#endif // COMMANDBUS_HH

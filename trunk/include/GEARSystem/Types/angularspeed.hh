@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSANGULARSPEED
-#define GSANGULARSPEED
+#ifndef ANGULARSPEED_HH
+#define ANGULARSPEED_HH
 
 
 // Includes GEARSystem
@@ -124,4 +124,4 @@ class GEARSystem::AngularSpeed {
 };
 
 
-#endif
+#endif // ANGULARSPEED_HH

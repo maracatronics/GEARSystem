@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSPOSITION
-#define GSPOSITION
+#ifndef POSITION_HH
+#define POSITION_HH
 
 
 // Includes GEARSystem
@@ -125,4 +125,4 @@ class GEARSystem::Position {
 };
 
 
-#endif
+#endif // POSITION_HH

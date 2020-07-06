@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSCORBACONTROLLER
-#define GSCORBACONTROLLER
+#ifndef CORBACONTROLLER_HH
+#define CORBACONTROLLER_HH
 
 
 // Includes GEARSystem
@@ -284,4 +284,4 @@ class GEARSystem::CORBAImplementations::Controller : public POA_GEARSystem::CORB
 };
 
 
-#endif
+#endif // CORBACONTROLLER_HH

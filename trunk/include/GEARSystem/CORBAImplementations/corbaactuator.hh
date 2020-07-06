@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSCORBAACTUATOR
-#define GSCORBAACTUATOR
+#ifndef CORBAACTUATOR_HH
+#define CORBAACTUATOR_HH
 
 
 // Includes GEARSystem
@@ -111,4 +111,4 @@ class GEARSystem::CORBAImplementations::Actuator : public POA_GEARSystem::CORBAI
 };
 
 
-#endif
+#endif // CORBAACTUATOR_HH

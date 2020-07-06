@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSCORBASENSOR
-#define GSCORBASENSOR
+#ifndef CORBASENSOR_HH
+#define CORBASENSOR_HH
 
 
 // Includes GEARSystem
@@ -165,4 +165,4 @@ class GEARSystem::CORBAImplementations::Sensor : public POA_GEARSystem::CORBAInt
 };
 
 
-#endif
+#endif CORBASENSOR_HH

@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSTYPES
-#define GSTYPES
+#ifndef TYPES_HH
+#define TYPES_HH
 
 // Includes Qt library
 #include <QtCore/QtCore>
@@ -33,4 +33,4 @@
 #include <GEARSystem/Types/velocity.hh>
 
 
-#endif
+#endif // TYPES_HH

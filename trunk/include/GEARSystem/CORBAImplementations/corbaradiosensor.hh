@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSCORBARADIOSENSOR
-#define GSCORBARADIOSENSOR
+#ifndef CORBARADIOSENSOR_HH
+#define CORBARADIOSENSOR_HH
 
 
 // Includes GEARSystem
@@ -62,4 +62,4 @@ class GEARSystem::CORBAImplementations::RadioSensor : public POA_GEARSystem::COR
 };
 
 
-#endif
+#endif // CORBARADIOSENSOR_HH

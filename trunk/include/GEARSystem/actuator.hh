@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSACTUATOR
-#define GSACTUATOR
+#ifndef ACTUATOR_HH
+#define ACTUATOR_HH
 
 
 // Includes GEARSystem
@@ -171,4 +171,4 @@ class GEARSystem::Actuator {
 };
 
 
-#endif
+#endif // ACTUATOR_HH

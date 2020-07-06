@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GEARSYSTEM
-#define GEARSYSTEM
+#ifndef GEARSYSTEM_HH
+#define GEARSYSTEM_HH
 
 
 // Includes system namespace
@@ -25,4 +25,4 @@
 #include <GEARSystem/radiosensor.hh>
 
 
-#endif
+#endif // GEARSYSTEM_HH

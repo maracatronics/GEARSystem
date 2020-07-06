@@ -7,8 +7,8 @@
 
 
 // Prevents multiple definitions
-#ifndef GSANGLE
-#define GSANGLE
+#ifndef ANGLE_HH
+#define ANGLE_HH
 
 
 // Includes GEARSystem
@@ -166,4 +166,4 @@ class GEARSystem::Angle {
 };
 
 
-#endif
+#endif // ANGLE_HH
